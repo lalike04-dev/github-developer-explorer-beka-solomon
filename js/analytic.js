@@ -1,6 +1,6 @@
 import { fetchGithubUser, fetchUserRepos } from "./githubApi.js";
 
-async function displayInformation(username) {
+export async function displayInformation(username) {
     if(username==null || username==undefined){
         console.log("Please enter a User name!")
     }
@@ -27,3 +27,5 @@ async function displayInformation(username) {
     }
 }
 //displayInformation("to");
+
+exoprt async function 
