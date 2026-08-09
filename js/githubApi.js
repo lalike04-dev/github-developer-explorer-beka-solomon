@@ -6,7 +6,7 @@ export async function fetchGithubUser(username) {
     'User-Agent': 'MyApp'
   }});
     if (!user.ok) {
-      throw new Error(`HTTP error! status: ${user.status}`);
+      return user;
     }
     const userjson = await user.json();
     console.log("Developer Retrieved Successfully!")
@@ -24,7 +24,7 @@ export async function fetchUserRepos(username){
     'User-Agent': 'project'
   }});
     if (!repo.ok) {
-      throw new Error(`HTTP error! status: ${repo.status}`);
+      return repo;
     }
     const repojson = await repo.json();
     console.log("Repos Retrieved Successfully!")
