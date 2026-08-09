@@ -16,5 +16,23 @@ export async function fetchGithubUser(username) {
   }
 }
 
+export async function fetchUserRepos(username){
+    try {
+    console.log("Loading Repo Information")
+    const repo = await fetch(`https://api.github.com/users/${username}/repos`, {
+  headers: {
+    'User-Agent': 'project'
+  }});
+    if (!repo.ok) {
+      throw new Error(`HTTP error! status: ${repo.status}`);
+    }
+    const repojson = await repo.json();
+    console.log("Repos Retrieved Successfully!")
+    return repojson;
+  } catch (error) {
+    console.error(error);
+  }
+}
 
+//fetchUserRepos("gaearon")
 //fetchGithubUser("torvalds")
