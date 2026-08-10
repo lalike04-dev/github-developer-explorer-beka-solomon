@@ -8,3 +8,7 @@ console.log(fetchGithubUser("octocat"))
 console.log(fetchUserRepos("octocat"))
 //here is how to display information of a selected user
 displayInformation("octocat")
+//heres how t show the repo statistics
+repoStats("octocat")
+//heres how to apply repo filtering
+repoFilters("octocat" , "Ruby")
