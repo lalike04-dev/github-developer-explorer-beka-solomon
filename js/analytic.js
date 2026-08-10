@@ -114,6 +114,11 @@ export async function repoFilters(username, lang){
         const starred=userRepoInfo.filter(repo=>repo.stargazers_count>1);
         const notfork=userRepoInfo.filter(repo=>repo.fork==false);
         const recentlyupdated=userRepoInfo.sort((a,b)=>Date(a.updated_at)-Date(b.updated_at));
+        console.log(`Repos with the selected language ${filterlang.name}`)
+        console.log(`Repos with more than 1 star ${starred.name}`)
+        console.log(`Repos that are not forks ${notfork.name}`)
+        for(let i=0;i<recentlyupdated.length;i++)
+        console.log(`${i+1} ${recentlyupdated[i].name}`)
     }
     catch(error){
         console.log(error);
