@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GitHub User Explorer</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+        body {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            background: #f6f8fa;
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+        .flex-row {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        input,
+        select,
+        button {
+            padding: 0.6rem 1.2rem;
+            border: 1px solid #d0d7de;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #fff;
+        }
+        button {
+            background: #2da44e;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.15s;
+        }
+        button:hover {
+            background: #22863a;
+        }
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 1px solid #d0d7de;
+        }
+        .profile-grid {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+        .stats-grid {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+        .stats-grid span {
+            background: #f6f8fa;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+        }
+        .repo-item {
+            border-top: 1px solid #e1e4e8;
+            padding: 0.75rem 0;
+        }
+        .repo-item:last-child {
+            border-bottom: 1px solid #e1e4e8;
+        }
+        .repo-name {
+            font-weight: 600;
+        }
+        .repo-name a {
+            color: #0969da;
+            text-decoration: none;
+        }
+        .repo-name a:hover {
+            text-decoration: underline;
+        }
+        .repo-meta {
+            color: #57606a;
+            font-size: 0.9rem;
+        }
+        .loader {
+            display: none;
+            width: 2rem;
+            height: 2rem;
+            border: 3px solid #d0d7de;
+            border-top-color: #2da44e;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 1rem auto;
+        }
+        .loader.active {
+            display: block;
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .hidden {
+            display: none !important;
+        }
+        #repoList {
+            margin-top: 1rem;
+        }
+        .filter-sort-bar {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .filter-sort-bar input {
+            flex: 1 1 200px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>GitHub User Explorer</h1>
+
+    <div class="card">
+        <div class="flex-row">
+            <input type="text" id="usernameInput" placeholder="Enter GitHub username" value="octocat" />
+            <button id="fetchBtn">Fetch</button>
+        </div>
+        <div class="loader" id="loader"></div>
+    </div>
+
+    <div id="profileSection" class="card hidden">
+        <div class="profile-grid">
+            <img id="avatar" class="avatar" src="" alt="avatar" />
+            <div>
+                <h2 id="userName"></h2>
+                <p id="userBio"></p>
+                <p id="userLocation"></p>
+                <a id="userUrl" href="#" target="_blank">GitHub Profile</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="statsSection" class="card hidden">
+        <h3>Repository Statistics</h3>
+        <div class="stats-grid" id="statsContainer">
+            <span><strong>Total Repos:</strong> <span id="totalRepos">-</span></span>
+            <span><strong>⭐ Total Stars:</strong> <span id="totalStars">-</span></span>
+            <span><strong>🍴 Total Forks:</strong> <span id="totalForks">-</span></span>
+            <span><strong>👀 Total Watchers:</strong> <span id="totalWatchers">-</span></span>
+        </div>
+    </div>
+
+    <div id="reposSection" class="card hidden">
+        <h3>Repositories</h3>
+        <div class="filter-sort-bar">
+            <input type="text" id="filterLang" placeholder="Filter by language (e.g. Ruby)" />
+            <button id="filterBtn">Filter</button>
+            <select id="sortSelect">
+                <option value="name">Sort by Name</option>
+                <option value="stars">Sort by Stars</option>
+                <option value="forks">Sort by Forks</option>
+            </select>
+            <button id="resetFilterBtn">Reset</button>
+        </div>
+        <div id="repoList"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
