@@ -34,5 +34,5 @@ export async function fetchUserRepos(username){
   }
 }
 
-//fetchUserRepos("gaearon")
+fetchUserRepos("gaearon")
 //fetchGithubUser("torvalds")

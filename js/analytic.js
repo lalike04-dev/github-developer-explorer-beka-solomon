@@ -89,4 +89,33 @@ export async function repoStats(username){
         }
     }
 }
-repoStats("octocat");
+//repoStats("octocat");
+
+export async function repoFilters(username, lang){
+    if(username==null || username==undefined){
+        console.log("Please enter a User name!")
+    }
+    else{
+        try{
+        const userRepoInfo = await fetchUserRepos(username);
+            if(!userRepoInfo.ok){
+               switch(userRepoInfo.status){
+            case 404: throw new Error (`User Not Found!`)
+            break;
+            case 429: throw new Error (`Too many tries!`)
+            break;
+            case 403: throw new Error (`Account is Forbidden to search!`)
+            break;
+            default:
+                break; 
+            }
+        }
+        const filterlang=userRepoInfo.filter(repo=>repo.language==lang);
+        const starred=userRepoInfo.filter(repo=>repo.stargazers_count>1);
+        const notfork=userRepoInfo.filter(repo=>repo.fork==false);
+        const recentlyupdated=userRepoInfo.sort((a,b)=>Date(a.updated_at)-Date(b.updated_at));
+    }
+    catch(error){
+        console.log(error);
+    }}
+}
